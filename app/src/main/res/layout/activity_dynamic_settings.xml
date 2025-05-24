@@ -1,0 +1,68 @@
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dynamicSettingsRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!-- The background image -->
+    <ImageView
+        android:id="@+id/backgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/back3" />
+
+    <!-- A semi-transparent dark overlay to help text pop -->
+    <View
+        android:id="@+id/darkOverlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black_overlay_50" />
+    <!-- black_overlay_50 is a color like #80000000 (50% black) -->
+
+    <!-- Actual content in a CoordinatorLayout or just a vertical layout -->
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <!-- Top App Bar -->
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/black_overlay_80"
+            android:title="Configure Entity Settings"
+            android:titleTextColor="@android:color/white"
+            app:layout_scrollFlags="scroll|enterAlways" />
+
+        <!-- Scrollable container for the dynamic fields -->
+        <ScrollView
+            android:id="@+id/scrollSettings"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            android:layout_marginBottom="80dp"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:id="@+id/dynamic_settings_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <!-- Programmatically added fields go here -->
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- "Apply" button pinned to bottom -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apply"
+            android:layout_gravity="bottom"
+            android:layout_margin="16dp"
+            android:backgroundTint="@color/colorAccentCyan"
+            android:textColor="@android:color/white"/>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</FrameLayout>

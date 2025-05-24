@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/worldCreatorRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/back2"
+    android:elevation="40dp">
+    <!-- or a dark color like @color/colorBackgroundDark -->
+
+    <FrameLayout
+        android:layout_marginTop="100px"
+        android:id="@+id/contentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- List of EntityTypes - CHANGED FROM ListView TO RecyclerView -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerEntityTypes"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorDividerGray"
+            android:dividerHeight="1dp"
+            android:listSelector="?attr/selectableItemBackground"
+            android:padding="8dp" />
+    </FrameLayout>
+
+    <!-- Top app bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:title="world creator"
+        android:titleTextColor="@color/colorAccentCyan"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:layout_scrollFlags="scroll|enterAlways"
+        app:navigationIcon="@drawable/arrow_back"/>
+
+    <!-- FloatingActionButton anchored bottom-right for "New EntityType" -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddEntityType"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="new entity type"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/contentFrame"
+        app:layout_anchorGravity="bottom|end"
+        app:tint="@android:color/white"
+        android:src="@drawable/ic_launcher_background"
+        android:backgroundTint="@color/colorAccentCyan"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnLoadWorld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Load World"
+        android:layout_gravity="bottom|start"
+        android:layout_margin="16dp"
+        android:backgroundTint="@color/colorAccentCyan"
+        android:textColor="@android:color/white"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

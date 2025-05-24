@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/mainMenuRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/test">
+
+    <!-- Top app bar -->
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/topAppBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:title="@string/app_name"
+        android:titleTextColor="@color/colorAccentCyan"
+        android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+        app:layout_scrollFlags="scroll|enterAlways"
+        />
+
+    <FrameLayout
+        android:id="@+id/contentFrame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <!-- Optional subtle background or gradient -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
+        <!-- List of worlds -->
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/listWorlds"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@color/colorDividerGray"
+            android:dividerHeight="1dp"
+            android:listSelector="?attr/selectableItemBackground"
+            android:padding="8dp" />
+    </FrameLayout>
+
+    <!-- FloatingActionButton anchored bottom-right for "New World" -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fabAddWorld"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="new world"
+        android:layout_margin="16dp"
+        app:layout_anchor="@id/contentFrame"
+        app:layout_anchorGravity="bottom|end"
+    app:tint="@android:color/white"/>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

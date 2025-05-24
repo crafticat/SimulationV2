@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary dark background -->
+    <color name="colorBackgroundDark">#9F121212</color>
+    <!-- Text color on dark surfaces -->
+    <color name="colorOnSurfaceDark">#E0E0E0</color>
+
+    <!-- A bright cyan accent -->
+    <color name="colorAccentCyan">#00BCD4</color>
+
+    <!-- A subtle divider color for lists -->
+    <color name="colorDividerGray">#2A2A2A</color>
+
+    <!-- If needed, a highlight or ripple color -->
+    <color name="colorRippleCyan">#4000BCD4</color> <!-- 25% alpha of cyan -->
+    <!-- Dark theme palette -->
+    <color name="colorSurfaceDark">#1E1E1E</color>
+        <color name="black_overlay_50">#80000000</color>  <!-- 50% black -->
+        <color name="black_overlay_80">#CC000000</color>  <!-- 80% black -->
+
+</resources>
