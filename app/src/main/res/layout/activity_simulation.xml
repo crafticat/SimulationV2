@@ -25,7 +25,21 @@
             android:title="Simulation"
             android:titleTextColor="@android:color/white"
             app:navigationIcon="@drawable/arrow_back"
-            app:navigationIconTint="@android:color/black"/>
+            app:navigationIconTint="@android:color/black">
+
+            <ImageButton
+                android:id="@+id/btnInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:layout_marginEnd="16dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:src="@android:drawable/ic_dialog_info"
+                android:contentDescription="World Info" />
+
+        </com.google.android.material.appbar.MaterialToolbar>
     </com.google.android.material.appbar.AppBarLayout>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -73,16 +74,34 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSwiped(RecyclerView.ViewHolder vh, int dir) {
                 int pos = vh.getAdapterPosition();
-                WorldCreator wc = worldCreators.remove(pos);
-                adapter.notifyItemRemoved(pos);
+                WorldCreator wc = worldCreators.get(pos); // Don't remove yet
 
-                WorldRepo.delete(wc)
-                        .addOnFailureListener(e -> {
-                            Log.e("MainActivity", "Delete failed", e);
-                            Toast.makeText(MainActivity.this,
-                                    "Delete failed: " + e.getMessage(),
-                                    Toast.LENGTH_SHORT).show();
-                        });
+                // Show confirmation dialog
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Delete World")
+                        .setMessage("Are you sure you want to delete '" + wc.getName() + "'?")
+                        .setPositiveButton("Delete", (dialog, which) -> {
+                            // Actually delete the world
+                            worldCreators.remove(pos);
+                            adapter.notifyItemRemoved(pos);
+
+                            WorldRepo.delete(wc)
+                                    .addOnFailureListener(e -> {
+                                        Log.e("MainActivity", "Delete failed", e);
+                                        Toast.makeText(MainActivity.this,
+                                                "Delete failed: " + e.getMessage(),
+                                                Toast.LENGTH_SHORT).show();
+
+                                        // Re-add the item if deletion failed
+                                        worldCreators.add(pos, wc);
+                                        adapter.notifyItemInserted(pos);
+                                    });
+                        })
+                        .setNegativeButton("Cancel", (dialog, which) -> {
+                            // Restore the item in the list
+                            adapter.notifyItemChanged(pos);
+                        })
+                        .show();
             }
         }).attachToRecyclerView(rv);
 

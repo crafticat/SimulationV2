@@ -4,16 +4,21 @@ package com.apptoeat.views;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 import androidx.core.view.WindowCompat;
 import androidx.core.view.WindowInsetsControllerCompat;
 
 import com.apptoeat.R;
+import com.apptoeat.env.types.EntityType;
 import com.apptoeat.menus.WorldCreator;
 import com.google.android.material.appbar.MaterialToolbar;
 
@@ -24,10 +29,53 @@ public class SimulationActivity extends AppCompatActivity {
 
     private SimulationView simulationView;
 
+    private void showGroupInfoDialog() {
+        if (worldConfig == null) return;
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        View dialogView = getLayoutInflater().inflate(R.layout.dialog_group_info, null);
+
+        TextView tvEntityTypes = dialogView.findViewById(R.id.tvEntityTypes);
+        TextView tvEntityCounts = dialogView.findViewById(R.id.tvEntityCounts);
+
+        StringBuilder entityInfo = new StringBuilder();
+        for (EntityType entityType : worldConfig.getEntityTypes()) {
+            entityInfo.append("• ").append(entityType.getName()).append("\n");
+            entityInfo.append("  Base Amount: ").append(entityType.getCreationProperty().baseAmount).append("\n");
+            entityInfo.append("  Type: ").append(entityType.getCreationProperty().getTypeEnum()).append("\n\n");
+        }
+
+        tvEntityTypes.setText(entityInfo.toString());
+        tvEntityCounts.setText("Total Entity Types: " + worldConfig.getEntityTypes().size());
+
+        builder.setView(dialogView)
+                .setTitle("World Information")
+                .setPositiveButton("Close", null)
+                .show();
+    }
+
+    public class LivingEntity extends Entity {
+        protected Brain brain;
+        protected double direction;
+        protected double hunger = getType().getHealthProperty().initFood;
+
+        public void stepForward(double dt) {
+            // חישוב תנועה ויישום כוחות גרר
+            double drag = type.getViewProperty().drag;
+            velX *= drag * dt;
+            velY *= drag * dt;
+
+            // תנועה קדימה
+            velX += Math.cos(Math.toRadians(direction)) * type.getViewProperty().movementSpeed;
+            velY += Math.sin(Math.toRadians(direction)) * type.getViewProperty().movementSpeed;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simulation);
+        ImageButton btnInfo = findViewById(R.id.btnInfo);
+        btnInfo.setOnClickListener(v -> showGroupInfoDialog());
 
         /* toolbar ------------------------------------------------------- */
         MaterialToolbar toolbar = findViewById(R.id.topAppBar);

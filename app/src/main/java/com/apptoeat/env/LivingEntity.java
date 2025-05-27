@@ -56,7 +56,6 @@ public class LivingEntity extends Entity {
         this.velY += dy;
     }
 
-    /* LivingEntity ------------------------------------------------------- */
     public double[] getProperties() {
         double maxHealth  = type.getHealthProperty().initHealth;
         double maxFood    = type.getHealthProperty().initFood;
@@ -75,8 +74,6 @@ public class LivingEntity extends Entity {
     public void update(double dt) {
         brain.handleMovement(this, dt);
 
-        // ── 2. ray-cast melee attack ───────────────────────────────────────────
-        /* ── 2. ray-cast melee attack ──────────────────────────────────────────── */
         double dx, dy;
 
         if (Math.abs(velX) > 1e-4 || Math.abs(velY) > 1e-4) {        // moving → face travel dir
